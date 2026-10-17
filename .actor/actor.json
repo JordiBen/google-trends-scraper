@@ -1,0 +1,18 @@
+{
+  "actorSpecification": 1,
+  "name": "google-trends-scraper",
+  "title": "Google Trends Scraper & API: Rising Queries, Regions, Compare",
+  "description": "Google Trends API alternative: interest over time, interest by country/region/city, top and rising related queries and topics, compare up to 5 keywords, many countries per run, plus Trending Now searches. $2 per 1,000 keyword reports.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "output": "./output_schema.json",
+  "dockerfile": "../Dockerfile",
+  "readme": "../README.md",
+  "storages": {
+    "dataset": "./dataset_schema.json"
+  },
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 1024,
+  "defaultMemoryMbytes": 256
+}

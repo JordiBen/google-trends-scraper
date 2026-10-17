@@ -1,0 +1,43 @@
+{
+  "actorSpecification": 1,
+  "fields": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": true,
+    "required": ["type", "scrapedAt"],
+    "properties": {
+      "type": {"type": "string", "enum": ["keywordReport", "trendingNow"]},
+      "searchTerms": {"type": "array", "items": {"type": "string"}},
+      "isComparison": {"type": "boolean"},
+      "geo": {"type": "string"},
+      "timeRange": {"type": "string"},
+      "interestOverTime": {"type": "array"},
+      "averages": {"type": "object"},
+      "interestByRegion": {"type": "array"},
+      "relatedQueries": {"type": "object"},
+      "relatedTopics": {"type": "object"},
+      "hasData": {"type": "boolean"},
+      "trendsUrl": {"type": "string"},
+      "title": {"type": ["string", "null"]},
+      "rank": {"type": "integer"},
+      "approxTraffic": {"type": ["string", "null"]},
+      "approxTrafficNumber": {"type": ["integer", "null"]},
+      "news": {"type": "array"},
+      "charged": {"type": "boolean"},
+      "error": {"type": "string"},
+      "errors": {"type": "array"},
+      "scrapedAt": {"type": "string"}
+    }
+  },
+  "views": {
+    "overview": {
+      "title": "Keyword reports",
+      "transformation": {"fields": ["type", "searchTerms", "geo", "timeRange", "averages", "hasData", "trendsUrl", "title", "approxTraffic", "charged"]},
+      "display": {"component": "table", "properties": {
+        "searchTerms": {"label": "Terms", "format": "array"},
+        "averages": {"label": "Average interest (0-100)", "format": "object"},
+        "trendsUrl": {"label": "Open in Google Trends", "format": "link"}
+      }}
+    }
+  }
+}

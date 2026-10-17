@@ -1,0 +1,8 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "Google Trends scraper output",
+  "properties": {
+    "results": {"type": "string", "title": "Trends reports", "description": "One item per keyword (or comparison group) x geo with interest over time, by region and related queries/topics; plus one item per Trending Now search.", "template": "{{links.apiDefaultDatasetUrl}}/items"},
+    "summary": {"type": "string", "title": "Run summary", "description": "Run statistics and the effective input.", "template": "{{links.apiDefaultKeyValueStoreUrl}}/records/OUTPUT"}
+  }
+}

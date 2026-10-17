@@ -1,0 +1,83 @@
+{
+  "title": "Google Trends Scraper",
+  "description": "Get Google Trends data for keywords: interest over time, interest by region, related queries and topics. Compare up to 5 keywords on one scale and run many countries at once. Optionally get Trending Now searches per country.",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "searchTerms": {
+      "title": "Search terms",
+      "type": "array",
+      "description": "Keywords to analyse one by one, e.g. 'air fryer'. Each term x each geo = one keyword report.",
+      "editor": "stringList",
+      "maxItems": 1000,
+      "prefill": ["air fryer"]
+    },
+    "comparisonGroups": {
+      "title": "Comparison groups (up to 5 terms each)",
+      "type": "array",
+      "description": "Comma-separated terms compared on the same 0-100 scale, like the Compare box on trends.google.com, e.g. 'chatgpt, gemini, claude'. Each group x each geo = one keyword report.",
+      "editor": "stringList",
+      "maxItems": 500,
+      "prefill": ["chatgpt, gemini, claude"]
+    },
+    "geos": {
+      "title": "Countries / regions",
+      "type": "array",
+      "description": "Google Trends geo codes. Leave empty or use '' for Worldwide. Examples: 'US', 'GB', 'DE', 'US-CA' (state), 'US-NY-501' (metro). Every term/group runs for every geo.",
+      "editor": "stringList",
+      "maxItems": 250,
+      "prefill": ["US"]
+    },
+    "timeRange": {
+      "title": "Time range",
+      "type": "string",
+      "description": "Preset or custom range. Presets: past-hour, past-4-hours, past-day, past-7-days, past-30-days, past-90-days, past-12-months, past-5-years, since-2004 (also raw values like 'today 12-m'). Custom: '2024-01-01 2024-12-31'.",
+      "editor": "textfield",
+      "default": "past-12-months",
+      "prefill": "past-12-months"
+    },
+    "category": {
+      "title": "Category ID",
+      "type": "integer",
+      "description": "Google Trends category number, 0 = all categories (e.g. 18 = Shopping, 71 = Food & Drink, 958 = Jobs, 5 = Computers & Electronics).",
+      "default": 0,
+      "minimum": 0
+    },
+    "searchProperty": {
+      "title": "Search type",
+      "type": "string",
+      "description": "Which Google search to measure.",
+      "editor": "select",
+      "enum": ["web", "images", "news", "shopping", "youtube"],
+      "enumTitles": ["Web search", "Image search", "News search", "Google Shopping", "YouTube search"],
+      "default": "web"
+    },
+    "includeInterestOverTime": {"title": "Interest over time", "type": "boolean", "description": "Timeline of 0-100 values for each term.", "default": true, "sectionCaption": "What to include"},
+    "includeInterestByRegion": {"title": "Interest by region", "type": "boolean", "description": "Countries (worldwide), states/regions (country) or cities/metros (region) ranked by interest.", "default": true},
+    "includeRelatedQueries": {"title": "Related queries (top & rising)", "type": "boolean", "description": "Top and rising related searches for each term, including 'Breakout' queries.", "default": true},
+    "includeRelatedTopics": {"title": "Related topics (single terms only)", "type": "boolean", "description": "Top and rising related topics. Google only shows these for single-term searches and sometimes returns none.", "default": true},
+    "regionResolution": {
+      "title": "Region resolution",
+      "type": "string",
+      "description": "Granularity of 'Interest by region'. auto = countries for Worldwide, regions for a country, cities for a region.",
+      "editor": "select",
+      "enum": ["auto", "COUNTRY", "REGION", "DMA", "CITY"],
+      "enumTitles": ["Auto", "Countries", "Regions / states", "Metro areas (US DMA)", "Cities"],
+      "default": "auto"
+    },
+    "includeLowVolumeRegions": {"title": "Include low-volume regions", "type": "boolean", "description": "Also return regions with low search volume.", "default": false},
+    "trendingNowGeos": {
+      "title": "Trending Now: countries",
+      "type": "array",
+      "description": "Also return today's trending searches (with approximate traffic and news links) for these countries, e.g. 'US', 'GB'. Charged per trending search returned.",
+      "editor": "stringList",
+      "maxItems": 125,
+      "sectionCaption": "Trending Now (optional)"
+    },
+    "maxTrendingPerGeo": {"title": "Max trending searches per country", "type": "integer", "description": "1-100.", "default": 50, "minimum": 1, "maximum": 100},
+    "language": {"title": "Interface language", "type": "string", "description": "Language for region and topic names, e.g. 'en-US', 'de', 'he'.", "editor": "textfield", "default": "en-US", "sectionCaption": "Advanced"},
+    "maxConcurrency": {"title": "Max parallel reports", "type": "integer", "description": "Higher is faster but Google rate-limits sooner. 1-10.", "default": 3, "minimum": 1, "maximum": 10},
+    "proxyConfiguration": {"title": "Proxy", "type": "object", "description": "Apify Proxy is used by default. If Google rate-limits the datacenter IPs, the Actor switches to residential automatically (you are not charged extra).", "editor": "proxy", "default": {"useApifyProxy": true}, "prefill": {"useApifyProxy": true}},
+    "allowResidentialFallback": {"title": "Auto-switch to residential proxy when rate-limited", "type": "boolean", "description": "Keeps runs reliable when Google returns HTTP 429. No extra charge to you.", "default": true}
+  }
+}
